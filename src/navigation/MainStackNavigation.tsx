@@ -1,6 +1,6 @@
-import { HomeScreen } from "../src/screens/home/HomeScreen";
-import { ProfileScreen } from "../src/screens/ProfileScreen";
-import { SearchScreen } from "../src/screens/SearchScreen";
+import { HomeScreen } from "../screens/home/HomeScreen";
+import { ProfileScreen } from "../screens/ProfileScreen";
+import { SearchScreen } from "../screens/SearchScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const Stack = createNativeStackNavigator();
