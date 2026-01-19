@@ -1,13 +1,14 @@
 import { FlatList, View } from "react-native";
 import React from "react";
-import { TitleText, ViewContainer } from "./MovieItemWithTitle";
+import { SubTitleText } from "./Text/AppText";
 import { NumberComponentMap } from "./NumberComponents";
 import { ExclusiveMovieItem } from "./ExclusiveMovieItem";
+import { ViewContainer } from "./MovieItemWithTitle";
 
 const Top10Movies = ({ nowPlayingMovies }) => {
   return (
     <ViewContainer>
-      <TitleText>Top 10 Movies in India Today</TitleText>
+      <SubTitleText marginBottom={12}>Top 10 Movies in India Today</SubTitleText>
       <FlatList
         data={nowPlayingMovies.slice(0, 10)}
         horizontal={true}

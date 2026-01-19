@@ -1,8 +1,8 @@
 import apiClient from "./apiClient"
 
-export const topRatedMoviesApi = async () => {
+export const topRatedMoviesApi = async (adultContentEnabled: boolean) => {
   try {
-    const response = await apiClient.get("/movie/top_rated");
+    const response = await apiClient.get("/discover/movie?include_adult=" + adultContentEnabled);
     return JSON.stringify(response.data);
   } catch (error) {
     console.log("Error fetching top rated movies:", error);
@@ -10,10 +10,10 @@ export const topRatedMoviesApi = async () => {
   }
 };
 
-export const popularMoviesApi = async () => {
+export const popularMoviesApi = async (adultContentEnabled: boolean) => {
   try {
     const response = await apiClient.get(
-      "/movie/popular");
+      "/movie/popular?include_adult=" + adultContentEnabled);
     return JSON.stringify(response.data);
   } catch (error) {
     console.log("Error fetching popular movies:", error);
@@ -21,10 +21,10 @@ export const popularMoviesApi = async () => {
   }
 };
 
-export const upcomingMoviesApi = async () => {
+export const upcomingMoviesApi = async (adultContentEnabled: boolean) => {
   try {
     const response = await apiClient.get(
-      "/movie/upcoming");
+      "/movie/upcoming?include_adult=" + adultContentEnabled);
     return JSON.stringify(response.data);
   } catch (error) {
     console.log("Error fetching upcoming movies:", error);
@@ -32,10 +32,10 @@ export const upcomingMoviesApi = async () => {
   }
 };
 
-export const nowPlayingMoviesApi = async () => {
+export const nowPlayingMoviesApi = async (adultContentEnabled: boolean) => {
   try {
     const response = await apiClient.get(
-      "/movie/now_playing");
+      "/movie/now_playing?include_adult=" + adultContentEnabled);
     return JSON.stringify(response.data);
   } catch (error) {
     console.log("Error fetching now playing movies:", error);

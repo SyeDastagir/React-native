@@ -2,6 +2,7 @@ import React from "react";
 import { ExclusiveMovieItem } from "./ExclusiveMovieItem";
 import styled from "styled-components/native";
 import { FlatList } from "react-native";
+import { SubTitleText } from "./Text/AppText";
 
 interface MovieItemWithTitleProps {
   title: string;
@@ -18,7 +19,7 @@ const MovieItemWithTitle = ({
 }: MovieItemWithTitleProps) => {
   return (
     <ViewContainer>
-      <TitleText>{title}</TitleText>
+      <SubTitleText marginBottom={8}>{title}</SubTitleText>
       <FlatList
         data={movieList}
         horizontal={true}
@@ -43,13 +44,7 @@ export { MovieItemWithTitle };
 const ViewContainer = styled.View`
   flex-direction: column;
   margin-top: 30px;
-`;
-
-const TitleText = styled.Text`
-  font-size: 24px;
-  font-weight: bold;
-  color: #ffffff;
   margin-bottom: 12px;
 `;
 
-export { ViewContainer, TitleText };
+export { ViewContainer };

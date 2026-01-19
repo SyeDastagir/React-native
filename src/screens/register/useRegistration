@@ -1,0 +1,40 @@
+import { useState } from "react";
+
+interface RegistrationFormState {
+  success: boolean;
+  error: string | null;
+  loading: boolean;
+}
+
+interface RegistrationFieldValues {
+    username: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+}
+
+const useRegistration = () => {
+  const [state, setState] = useState<RegistrationFormState>({
+    success: false,
+    error: null,
+    loading: false
+  });
+
+  const [RegFieldValues, setRegFieldValues ] = useState<RegistrationFieldValues>({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
+  });
+
+  return {useRegistration, RegFieldValues, setRegFieldValues, state, setState};
+};
+
+const updateRegField = (field: keyof RegistrationFieldValues, value: string, RegFieldValues: RegistrationFieldValues, setRegFieldValues: React.Dispatch<React.SetStateAction<RegistrationFieldValues>>) => {
+    setRegFieldValues({
+        ...RegFieldValues,
+        [field]: value
+    });
+}
+
+export default useRegistration;

@@ -1,36 +1,50 @@
-import { StyleSheet, Text, View, Switch } from "react-native";
+import { StyleSheet, Text, View, Switch, TouchableOpacity } from "react-native";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleAdultContent } from "../store/slices/ProfileSettingSlicer";
-//import { RootState } from "../store/AppStore";
+import { useAtomValue, useSetAtom } from "jotai";
+import { profileSettingAtom } from "../store/slices/ProfileSettingSlicer";
 
-const ProfileScreen = () => {
-  const adultContent = useSelector((state: any) => state.settings.adultContent);
-  const dispatcher = useDispatch();
+const ProfileScreen = ({ navigation }) => {
+  const profileSettings = useAtomValue(profileSettingAtom);
+  const setAdultContent = useSetAtom(profileSettingAtom);
+
   const toggleSwitch = () => {
-    dispatcher(toggleAdultContent(!adultContent));
+    setAdultContent({
+      ...profileSettings,
+      adultContent: !profileSettings.adultContent,
+    });
   };
+
   return (
     <View style={styles.container}>
       <Text>ProfileScreen</Text>
       <View style={styles.settingContainer}>
-        <Text>Adult Content: {adultContent ? "Enabled" : "Disabled"}</Text>
+        <Text>Adult Content: {profileSettings.adultContent ? "Enabled" : "Disabled"}</Text>
         <Switch
           trackColor={{
             false: "#767577",
-            true: "rgba(45, 250, 38, 0.24)39, 67, 1)ff",
+            true: "rgba(45, 250, 38, 0.24)",
           }}
-          thumbColor={adultContent ? "rgba(0, 139, 67, 1)ff" : "#f4f3f4"}
+          thumbColor={profileSettings.adultContent ? "rgba(0, 139, 67, 1)" : "#f4f3f4"}
           ios_backgroundColor="#3e3e3e"
           onValueChange={toggleSwitch}
-          value={adultContent}
+          value={profileSettings.adultContent}
         />
       </View>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Auth", {
+            screen: "SignIn",
+          });
+        }}
+        style={styles.signInButton}
+      >
+        <Text>Sign In</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
-export { ProfileScreen };
+export default ProfileScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -38,11 +52,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",
+    gap: 10,
   },
   settingContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 20,
+    gap: 10,
   },
-});
+  signInButton: {
+    marginTop: 10,
+  },
+}
+);

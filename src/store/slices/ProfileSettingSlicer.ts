@@ -1,18 +1,28 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { atom } from "jotai";
 
-const initialState = {
+export type ProfileSettingState = {
+    adultContent : boolean;
+}
+
+const profileSettingInitialState : ProfileSettingState = {
     adultContent: true,
-};
+}
 
-const SettingSlicer = createSlice({
-    name: 'settings',
-    initialState,
-    reducers: {
-        toggleAdultContent: (state, action) => {
-            state.adultContent = action.payload;
-        },
-    },
-});
+const profileSettingAtom = atom<ProfileSettingState>(profileSettingInitialState);
 
-export const { toggleAdultContent } = SettingSlicer.actions;
-export { SettingSlicer };
+const getAdultContentAtom = atom(
+    (get) => get(profileSettingAtom).adultContent,
+);
+
+const setAdultContentAtom = atom(
+    null,
+    (get, set, newValue: boolean) => {
+        const currentState = get(profileSettingAtom);
+        set(profileSettingAtom, {
+            ...currentState,
+            adultContent: newValue,
+        });
+    }
+);
+
+export { profileSettingAtom, getAdultContentAtom, setAdultContentAtom };
